@@ -7,6 +7,15 @@
             <div class="mobile-overlay"></div>
             <div class="container-fluid">
                 <div class='block-menu'>
+                  <div class='row'>
+                      <div class="col-md-12 col-lg-6 d-flex">
+                          <button name="button" type="button" class="toggle-mobile-nav"><span class="sr-only">Open sidebar</span>
+                              <i aria-hidden="true" data-hidden="true" class="fa fa-bars"></i>
+                          </button>
+                      </div>
+                      <div class="col-md-12 col-lg-6 d-inline-flex flex-wrap justify-content-lg-end" id='menuRight'>
+                      </div>
+                  </div>
                 </div>
             </div>
             <router-view></router-view>
