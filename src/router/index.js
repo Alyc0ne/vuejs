@@ -9,12 +9,12 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'Login',
       component: Login
     },
     {
-      path: '/dashboard',
+      path: '/',
       name: 'Dashboard',
       component: Dashboard
     },
@@ -23,5 +23,6 @@ export default new Router({
       name: 'ListGoods',
       component: ListGoods
     }
-  ]
+  ],
+  mode: 'abstract'
 })

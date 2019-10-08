@@ -40,6 +40,7 @@
                             <a class="dropdown-item disabled" href="#">Profile</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" @click.prevent="Logout()">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -50,7 +51,15 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 export default {
-  name: 'header'
+  name: 'header',
+  methods: {
+    Logout: function (e) {
+      firebase.auth().signOut().then(() => {
+        this.$router.go({ path: this.$router.path })
+      })
+    }
+  }
 }
 </script>
