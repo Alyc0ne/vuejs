@@ -26,4 +26,7 @@
     .nav-sidebar:not(.sidebar-expanded-mobile) {
         width: 50px;
     }
+    .LinkSidebar {
+        display: none;
+    }
 }

@@ -1,25 +1,25 @@
 <template>
   <div>
-    <div class="nav-sidebar" :style="{ left : isSideBar + 'px' }">
+    <div class="nav-sidebar" :style="{ left : paddingSidebar + 'px' }">
         <div class="nav-sidebar-inner-scroll">
             <ul class="sidebar-top-level-items">
                 <li @click="ActiveLink('dashboard')" :class="{ navSidebarActive : isActive === 'dashboard'}">
-                    <router-link to="/">Dashboard</router-link>
+                    <router-link to="/"><i class="fas fa-chart-line"><span class="LinkSidebar" :class="{ linkActive : isActive === 'dashboard' }">Dashboard</span></i></router-link>
                 </li>
                 <li @click="ActiveLink('pos')" :class="{ navSidebarActive : isActive === 'pos'}">
-                    <router-link to="pos">POS</router-link>
+                    <router-link to="pos"><i class="fas fa-cash-register"><span class="LinkSidebar">POS</span></i></router-link>
                 </li>
                 <!-- <li>
                     <router-link to="dashboard/1">Unit</router-link>
                 </li> -->
                 <li @click="ActiveLink('listgoods')" :class="{ navSidebarActive : isActive === 'listgoods'}">
-                    <router-link to="listgoods" @click="ActiveLink('listgoods')">Goods</router-link>
+                    <router-link to="listgoods" @click="ActiveLink('listgoods')"><i class="fas fa-cubes"><span class="LinkSidebar">Goods</span></i></router-link>
                 </li>
             </ul>
         </div>
     </div>
     <div class="content-wrapper">
-      <div class="mobile-overlay"></div>
+      <div class="mobile-overlay" :class="{ mobileNavOpen : isSideBar }" @click="closeSideBar(true)"></div>
         <div class="container-fluid">
             <div class='block-menu'>
               <div class='row'>
@@ -43,8 +43,27 @@ export default {
   data () {
     return {
       isActive: 'dashboard',
-      isSideBar: ''
+      isSideBar: false,
+      paddingSidebar: '',
+      windowWidth: 0
     }
+  },
+  watch: {
+    windowWidth (newWidth, oldWidth) {
+      if (newWidth <= 768) {
+        this.paddingSidebar = -220
+      } else {
+        this.paddingSidebar = 0
+      }
+      this.isSideBar = false
+    }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      window.addEventListener('resize', () => {
+        this.windowWidth = window.innerWidth
+      })
+    })
   },
   methods: {
     ActiveLink: function (urlRouter) {
@@ -52,7 +71,14 @@ export default {
     },
     openSideBar: function (e) {
       if (e) {
-        this.isSideBar = 0
+        this.paddingSidebar = 0
+        this.isSideBar = true
+      }
+    },
+    closeSideBar: function (e) {
+      if (e) {
+        this.paddingSidebar = -220
+        this.isSideBar = false
       }
     }
   }
