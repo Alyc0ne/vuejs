@@ -16,19 +16,18 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'Dashboard',
+      name: 'dashboard',
       component: Dashboard
     },
     {
       path: '/pos',
-      name: 'Pos',
+      name: 'pos',
       component: Pos
     },
     {
       path: '/listgoods',
-      name: 'ListGoods',
+      name: 'listgoods',
       component: ListGoods
     }
-  ],
-  mode: 'abstract'
+  ]
 })

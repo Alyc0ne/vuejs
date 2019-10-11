@@ -42,7 +42,7 @@ export default {
   name: 'leftmenu',
   data () {
     return {
-      isActive: 'dashboard',
+      isActive: this.$router.currentRoute.name,
       isSideBar: false,
       paddingSidebar: '',
       windowWidth: 0
