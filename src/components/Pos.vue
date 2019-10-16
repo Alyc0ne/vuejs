@@ -1,10 +1,10 @@
 <template>
  <div class='block-content'>
     <div class="row side-pos">
-        <div class="col-6" id="Sell-PageLeft" style="height:100%!important;">
+        <div class="col-xl-6 col-sm-4" id="Sell-PageLeft" style="height:100%!important;">
 
         </div>
-        <div class="col-6">
+        <div class="col-xl-6 col-sm-8">
           <div class="row">
             <div class="col-2">
               <input type="number" name="qtyBarcode" v-model="qtyBarcode" class="form-control" :min="1" :max="99">
@@ -14,34 +14,68 @@
             </div>
           </div>
           <div class="row">
-            <div class="card w_100">
-              <div class="card-header">
+            <div class="card w_100" style="height:65vh;">
+              <div class="card-body" style="padding:0px;">
                 <table class="w_100">
-                  <thead>
-                    <th style="width:10%;">Qty</th>
-                    <th style="width:40%;">ItemName</th>
-                    <th style="width:20%;">@</th>
-                    <th style="width:20%;">Total</th>
+                  <thead style="background:rgba(0,0,0,0.04);">
+                    <th style="width: 2vw;">Qty</th>
+                    <th class="text-left" style="width: 5vw;">ItemName</th>
+                    <th class="text-right" style="width: 5vw;">Per Items</th>
+                    <th class="text-right" style="width: 5vw;padding-right:5px;">Total</th>
                   </thead>
-                </table>
-              </div>
-              <div class="card-body">
-                <table class="w_100">
                   <tbody>
                     <tr class="transac-posDetail">
-                      <td style="width:10%;">
+                      <th style="width: 2vw;">5
+                        <!-- <div style="border:solid 1px black;display: flex;position: relative;">
+                          <button type="button" class="decressQty">-</button>
+                          1
+                          <button type="button" class="incressQty">+</button>
+                        </div> -->
+                      </th>
+                      <th class="text-left" style="width: 5vw;">น้ำสิงห์</th>
+                      <th class="text-right" style="width: 5vw;">@200.00</th>
+                      <th class="text-right" style="width: 5vw;padding-right:5px;">1,000.00</th>
+                    </tr>
+                    <!-- <tr class="transac-posDetail">
+                      <th class="border">
                         <div style="border:solid 1px black;display: flex;position: relative;">
                           <button type="button" class="decressQty">-</button>
                           <input type="text" name="" id="" style="width:100%;border:none;text-align:center;">
                           <button type="button" class="incressQty">+</button>
                         </div>
-                      </td>
-                      <td style="width:40%;">ItemName</td>
-                      <td style="width:20%;">@</td>
-                      <td style="width:20%;">Total</td>
-                    </tr>
+                      </th>
+                      <td class="border" style="width:20vw;">ItemName</td>
+                      <td class="border" style="width:20%;">@</td>
+                      <td class="border" style="width:20%;">Total</td>
+                    </tr> -->
                   </tbody>
                 </table>
+              </div>
+              <div class="card-footer" style="padding:0px;background-color: transparent;">
+                <div class="row" style="height:6vh;margin:0px;">
+                  <div class="col-8 text-right" style="padding:10px;">
+                    <span>Sub Total : </span>
+                  </div>
+                  <div class="col-4" style="padding:0px 5px 0px 0px;">
+                    <input type="text" name="subTotal" v-model="subtotal" class="w_100 h_100 text-right" style="border:none;background: transparent;" disabled>
+                  </div>
+                </div>
+                <div class="row" style="height:6vh;margin:0px;">
+                  <div class="col-8 text-right" style="padding:10px;">
+                    <span>Discount : </span>
+                  </div>
+                  <div class="col-4" style="padding:0px;">
+                    <input type="text" name="discount" v-model="discount" class="w_100 h_100 text-right" style="border:none;padding-right:5px;" @change="calSummary()">
+                  </div>
+                </div>
+                <div class="row" style="height:6vh;margin:0px;">
+                  <div class="col-8 text-right" style="padding:10px;">
+                    <span>Grand Total : </span>
+                  </div>
+                  <div class="col-4" style="padding:0px 5px 0px 0px;">
+                    <input type="text" name="grandtotal" v-model="grandtotal" class="w_100 h_100 text-right" style="border:none;background: transparent;" disabled>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -56,7 +90,16 @@ export default {
   data () {
     return {
       qtyBarcode: 1,
-      barcode: ''
+      barcode: '',
+      subtotal: '1,500.00',
+      discount: 0,
+      grandtotal: 0.00
+    }
+  },
+  methods: {
+    calSummary: function (e) {
+      this.grandtotal = parseFloat(this.subtotal) - parseFloat(this.discount);
+      return 0
     }
   }
 }
@@ -69,7 +112,11 @@ export default {
 .side-pos .card {
   margin: 15px;
 }
-.transac-posDetail {
+.transac-posDetail tr:not(:last-child) {
+  height: 30px;
+  border-bottom: solid 1px black;
+}
+.transac-posDetail tr:last-child {
   height: 30px;
 }
 .transac-posDetail td {
@@ -88,5 +135,8 @@ export default {
   border-left: solid 1px black;
   border-top-left-radius: 0;
   width: 40px;
+}
+.border {
+  border: solid 1px black;
 }
 </style>

@@ -4,8 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import firebase from 'firebase/app'
+import appMixins from '@/Mixins/appMixins'
 
 Vue.config.productionTip = false
+Vue.mixin(appMixins)
 
 const config = {
   apiKey: 'AIzaSyA9992fhuMYvv-9gLKj9TEJt0M9_6OlsF8',
