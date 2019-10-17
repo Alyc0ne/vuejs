@@ -5,8 +5,13 @@ import App from './App'
 import router from './router'
 import firebase from 'firebase/app'
 import appMixins from '@/Mixins/appMixins'
+import axios from 'axios'
+
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 Vue.config.productionTip = false
+Vue.prototype.$http = axios
+
 Vue.mixin(appMixins)
 
 const config = {
