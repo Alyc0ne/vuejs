@@ -14,9 +14,29 @@
             </div>
           </div>
           <div class="row">
-            <div class="card w_100" style="height:65vh;">
+            <div class="card w_100" style="height:75vh;">
               <div class="card-body" style="padding:0px;">
-                <table class="w_100">
+                <div class="transac-pos">
+                  <div class="transac-pos-scroll">
+                    <table>
+                      <thead style="background:rgba(0,0,0,0.04);">
+                        <th style="width: 5vw;">Qty</th>
+                        <th class="text-left" style="width: 15vw;">ItemName</th>
+                        <th class="text-right" style="width: 8vw;">Per Items</th>
+                        <th class="text-right" style="width: 8vw;padding-right:5px;">Total</th>
+                      </thead>
+                      <tbody>
+                        <tr class="transac-posDetail" v-for="_Goods in Goods" v-bind:key="_Goods.GoodsID">
+                          <td style="width: 2vw;">5</td>
+                          <td class="text-left" style="width: 5vw;" :title="GoodsName">{{ _Goods.GoodsName }}</td>
+                          <td class="text-right" style="width: 5vw;">{{ _Goods.GoodsPrice }}</td>
+                          <td class="text-right" style="width: 5vw;padding-right:5px;">{{ _Goods.GoodsPrice * _Goods.GoodsQty }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- <table class="w_100">
                   <thead style="background:rgba(0,0,0,0.04);">
                     <th style="width: 2vw;">Qty</th>
                     <th class="text-left" style="width: 5vw;">ItemName</th>
@@ -25,18 +45,18 @@
                   </thead>
                   <tbody>
                     <tr class="transac-posDetail" v-for="_Goods in Goods" v-bind:key="_Goods.GoodsID">
-                      <th style="width: 2vw;">5
-                        <!-- <div style="border:solid 1px black;display: flex;position: relative;">
+                      <td style="width: 2vw;">5
+                        <div style="border:solid 1px black;display: flex;position: relative;">
                           <button type="button" class="decressQty">-</button>
                           1
                           <button type="button" class="incressQty">+</button>
-                        </div> -->
-                      </th>
-                      <th class="text-left" style="width: 5vw;">{{ _Goods.GoodsName }}</th>
-                      <th class="text-right" style="width: 5vw;">{{ _Goods.GoodsPrice }}</th>
-                      <th class="text-right" style="width: 5vw;padding-right:5px;">{{ _Goods.GoodsPrice * _Goods.GoodsQty }}</th>
+                        </div>
+                      </td>
+                      <td class="text-left" style="width: 5vw;" :title="GoodsName">{{ _Goods.GoodsName }}</td>
+                      <td class="text-right" style="width: 5vw;">{{ _Goods.GoodsPrice }}</td>
+                      <td class="text-right" style="width: 5vw;padding-right:5px;">{{ _Goods.GoodsPrice * _Goods.GoodsQty }}</td>
                     </tr>
-                    <!-- <tr class="transac-posDetail">
+                    <tr class="transac-posDetail">
                       <th class="border">
                         <div style="border:solid 1px black;display: flex;position: relative;">
                           <button type="button" class="decressQty">-</button>
@@ -47,9 +67,9 @@
                       <td class="border" style="width:20vw;">ItemName</td>
                       <td class="border" style="width:20%;">@</td>
                       <td class="border" style="width:20%;">Total</td>
-                    </tr> -->
+                    </tr>
                   </tbody>
-                </table>
+                </table> -->
               </div>
               <div class="card-footer" style="padding:0px;background-color: transparent;">
                 <div class="row" style="height:6vh;margin:0px;">
@@ -103,15 +123,20 @@ export default {
       this.discount = ''
     },
     GetGoodsByBarCode: function () {
-      this.$http.post('http://127.0.0.1:8000/GetGoodsByBarcode', {
-        GoodsBarCode: this.GoodsBarCode
-      })
-        .then(function (response) {
-          console.log(response)
+      this.$http.get('http://127.0.0.1:8000/TestAPI')
+        .then((result) => {
+          console.log(result.data.data)
+          this.Goods = result.data.data
         })
-        .catch(function (error) {
-          console.log(error)
-        })
+      // this.$http.post('http://127.0.0.1:8000/TestAPI', {
+      //   GoodsBarCode: this.GoodsBarCode
+      // })
+      //   .then(function (response) {
+      //     console.log(response)
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error)
+      //   })
     },
     calSummary: function (e) {
       let subtotal = parseFloat(this.subtotal.replace(/,/g, ''))
@@ -139,9 +164,6 @@ export default {
 .transac-posDetail tr:last-child {
   height: 30px;
 }
-.transac-posDetail td {
-  max-height: 30px;
-}
 .decressQty {
   border: 0;
   background-color: white;
@@ -158,5 +180,23 @@ export default {
 }
 .border {
   border: solid 1px black;
+}
+
+.transac-pos {
+  position:relative;
+}
+.transac-pos-scroll {
+  height: 56vh;
+  overflow:auto;
+}
+.transac-pos table {
+  width:100%;
+
+}
+.transac-posDetail td {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100px;
+  overflow: hidden;
 }
 </style>
