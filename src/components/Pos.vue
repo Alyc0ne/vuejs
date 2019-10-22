@@ -27,10 +27,10 @@
                       </thead>
                       <tbody>
                         <tr class="transac-posDetail" v-for="_Goods in Goods" v-bind:key="_Goods.GoodsID">
-                          <td style="width: 2vw;">5</td>
-                          <td class="text-left" style="width: 5vw;" :title="GoodsName">{{ _Goods.GoodsName }}</td>
-                          <td class="text-right" style="width: 5vw;">{{ _Goods.GoodsPrice }}</td>
-                          <td class="text-right" style="width: 5vw;padding-right:5px;">{{ _Goods.GoodsPrice * _Goods.GoodsQty }}</td>
+                          <td style="width: 2vw;">{{ _Goods.Qty }}</td>
+                          <td class="text-left" style="width: 5vw;">{{ _Goods.GoodsName }}</td>
+                          <td class="text-right" style="width: 5vw;">{{ '@' + _Goods.GoodsPrice }}</td>
+                          <td class="text-right" style="width: 5vw;padding-right:5px;">{{ _Goods.GoodsPrice * _Goods.Qty }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -109,11 +109,11 @@ export default {
   name: 'App',
   data () {
     return {
-      Goods: null,
+      Goods: [],
       GoodsBarCode: '',
       qtyBarcode: 1,
       barcode: '',
-      subtotal: '1,500.00',
+      subtotal: '0.00',
       discount: '0.00',
       grandtotal: '0.00'
     }
@@ -123,20 +123,27 @@ export default {
       this.discount = ''
     },
     GetGoodsByBarCode: function () {
-      this.$http.get('http://127.0.0.1:8000/TestAPI')
-        .then((result) => {
-          console.log(result.data.data)
-          this.Goods = result.data.data
+      this.$http.get('http://127.0.0.1:8000/api/GetGoodsByBarcode/' + this.GoodsBarCode)
+        .then((response) => {
+          if (response.status === 200) {
+            var foundIndex = this.Goods.findIndex(x => x.GoodsID === response.data.GoodsID)
+            if (foundIndex >= 0) {
+              this.Goods[foundIndex].Qty = this.Goods[foundIndex].Qty + this.qtyBarcode
+            } else {
+              response.data['Qty'] = this.qtyBarcode
+              this.Goods.push(response.data)
+            }
+            let subTotal = parseFloat(this.subtotal)
+            subTotal += parseFloat(response.data['GoodsPrice']) * parseFloat(response.data['Qty'])
+            this.subtotal = subTotal.toFixed('2')
+          } else {
+            console.log('ไม่เจอสินค้าที่เลือก')
+          }
         })
-      // this.$http.post('http://127.0.0.1:8000/TestAPI', {
-      //   GoodsBarCode: this.GoodsBarCode
-      // })
-      //   .then(function (response) {
-      //     console.log(response)
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error)
-      //   })
+        .catch(function (error) {
+          console.log(error)
+        })
+      this.GoodsBarCode = ''
     },
     calSummary: function (e) {
       let subtotal = parseFloat(this.subtotal.replace(/,/g, ''))
