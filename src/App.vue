@@ -4,17 +4,20 @@
       <div class="layout-page page-with-contextual-sidebar">
         <Main />
       </div>
+      <ManageGoodsModal />
   </div>
 </template>
 
 <script>
 import Header from '@/components/Shared/Default/Header'
 import Main from '@/components/Shared/Default/Main'
+import ManageGoodsModal from '@/components/IC/Goods/ManageGoodsModal'
 export default {
   name: 'App',
   components: {
     Header,
-    Main
+    Main,
+    ManageGoodsModal
   }
 }
 </script>

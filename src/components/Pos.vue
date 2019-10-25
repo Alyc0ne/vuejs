@@ -36,40 +36,6 @@
                     </table>
                   </div>
                 </div>
-                <!-- <table class="w_100">
-                  <thead style="background:rgba(0,0,0,0.04);">
-                    <th style="width: 2vw;">Qty</th>
-                    <th class="text-left" style="width: 5vw;">ItemName</th>
-                    <th class="text-right" style="width: 5vw;">Per Items</th>
-                    <th class="text-right" style="width: 5vw;padding-right:5px;">Total</th>
-                  </thead>
-                  <tbody>
-                    <tr class="transac-posDetail" v-for="_Goods in Goods" v-bind:key="_Goods.GoodsID">
-                      <td style="width: 2vw;">5
-                        <div style="border:solid 1px black;display: flex;position: relative;">
-                          <button type="button" class="decressQty">-</button>
-                          1
-                          <button type="button" class="incressQty">+</button>
-                        </div>
-                      </td>
-                      <td class="text-left" style="width: 5vw;" :title="GoodsName">{{ _Goods.GoodsName }}</td>
-                      <td class="text-right" style="width: 5vw;">{{ _Goods.GoodsPrice }}</td>
-                      <td class="text-right" style="width: 5vw;padding-right:5px;">{{ _Goods.GoodsPrice * _Goods.GoodsQty }}</td>
-                    </tr>
-                    <tr class="transac-posDetail">
-                      <th class="border">
-                        <div style="border:solid 1px black;display: flex;position: relative;">
-                          <button type="button" class="decressQty">-</button>
-                          <input type="text" name="" id="" style="width:100%;border:none;text-align:center;">
-                          <button type="button" class="incressQty">+</button>
-                        </div>
-                      </th>
-                      <td class="border" style="width:20vw;">ItemName</td>
-                      <td class="border" style="width:20%;">@</td>
-                      <td class="border" style="width:20%;">Total</td>
-                    </tr>
-                  </tbody>
-                </table> -->
               </div>
               <div class="card-footer" style="padding:0px;background-color: transparent;">
                 <div class="row" style="height:6vh;margin:0px;">
@@ -198,7 +164,6 @@ export default {
 }
 .transac-pos table {
   width:100%;
-
 }
 .transac-posDetail td {
   text-overflow: ellipsis;
