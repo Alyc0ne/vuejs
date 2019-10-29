@@ -12,8 +12,10 @@
 import Header from '@/components/Shared/Default/Header'
 import Main from '@/components/Shared/Default/Main'
 import ManageGoodsModal from '@/components/IC/Goods/ManageGoodsModal'
+import appMixins from '@/Mixins/appMixins'
 export default {
   name: 'App',
+  mixins: [appMixins],
   components: {
     Header,
     Main,

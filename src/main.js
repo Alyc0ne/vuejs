@@ -4,15 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import firebase from 'firebase/app'
-import appMixins from '@/Mixins/appMixins'
 import axios from 'axios'
+import store from './store'
 
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
-
-Vue.mixin(appMixins)
+Vue.prototype.$api = 'http://127.0.0.1:8000/api/'
 
 const config = {
   apiKey: 'AIzaSyA9992fhuMYvv-9gLKj9TEJt0M9_6OlsF8',
@@ -26,6 +25,7 @@ firebase.initializeApp(config)
 
 /* eslint-disable no-new */
 new Vue({
+  store,
   el: '#app',
   router,
   components: { App },

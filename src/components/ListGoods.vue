@@ -3,7 +3,7 @@
     <div class='block-menu' style="border-bottom:none;">
         <div class='row' style="margin:10px;">
             <div class="col-md-12 col-lg-6 d-flex">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" @click="GenRunningNumber('Goods')">
                   Launch demo modal
                 </button>
             </div>
@@ -108,6 +108,9 @@ export default {
     },
     ManageGoods: function (action) {
       console.log(this)
+    },
+    kkk: function (params) {
+      this.GenRunningNumber()
     }
   }
 }
