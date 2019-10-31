@@ -5,7 +5,6 @@ import App from './App'
 import router from './router'
 import firebase from 'firebase/app'
 import axios from 'axios'
-import store from './store'
 
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
@@ -25,9 +24,12 @@ firebase.initializeApp(config)
 
 /* eslint-disable no-new */
 new Vue({
-  store,
   el: '#app',
   router,
   components: { App },
   template: '<App/>'
+})
+
+Vue.component('MenuBar', {
+  template: '<button type="button" class="btn btn-success" onclick="javascript:ShowModalGoods();">New Goods</button>'
 })

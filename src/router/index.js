@@ -4,6 +4,7 @@ import Login from '@/components/Login'
 import Dashboard from '@/components/Dashboard'
 import ListGoods from '@/components/ListGoods'
 import Pos from '@/components/Pos'
+import State from '@/components/State'
 
 Vue.use(Router)
 
@@ -25,9 +26,14 @@ export default new Router({
       component: Pos
     },
     {
-      path: '/listgoods',
-      name: 'listgoods',
+      path: '/Goods',
+      name: 'Goods',
       component: ListGoods
+    },
+    {
+      path: '/teststate',
+      name: 'teststate',
+      component: State
     }
   ]
 })

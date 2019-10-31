@@ -3,9 +3,6 @@
     <div class='block-menu' style="border-bottom:none;">
         <div class='row' style="margin:10px;">
             <div class="col-md-12 col-lg-6 d-flex">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" @click="GenRunningNumber('Goods')">
-                  Launch demo modal
-                </button>
             </div>
             <div class="col-md-12 col-lg-6 d-inline-flex flex-wrap justify-content-lg-end">
                 <div class="col-9 p_lr0">
@@ -105,12 +102,6 @@ export default {
           this.GoodsPagination = result.data.last_page
           this.thisPage = result.data.current_page
         })
-    },
-    ManageGoods: function (action) {
-      console.log(this)
-    },
-    kkk: function (params) {
-      this.GenRunningNumber()
     }
   }
 }

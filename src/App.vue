@@ -4,22 +4,24 @@
       <div class="layout-page page-with-contextual-sidebar">
         <Main />
       </div>
-      <ManageGoodsModal />
+      <ManageDocModal />
   </div>
 </template>
 
 <script>
 import Header from '@/components/Shared/Default/Header'
 import Main from '@/components/Shared/Default/Main'
-import ManageGoodsModal from '@/components/IC/Goods/ManageGoodsModal'
+import ManageDocModal from '@/components/Shared/Modal/ManageDocModal'
 import appMixins from '@/Mixins/appMixins'
+import {store} from '@/store/'
 export default {
   name: 'App',
   mixins: [appMixins],
+  store,
   components: {
     Header,
     Main,
-    ManageGoodsModal
+    ManageDocModal
   }
 }
 </script>

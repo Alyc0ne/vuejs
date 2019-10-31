@@ -3,17 +3,20 @@
     <div class="nav-sidebar" :style="{ left : paddingSidebar + 'px' }">
         <div class="nav-sidebar-inner-scroll">
             <ul class="sidebar-top-level-items">
-                <li @click="ActiveLink('dashboard')" :class="{ navSidebarActive : isActive === 'dashboard'}">
-                    <router-link to="/"><i class="fas fa-chart-line"><span class="LinkSidebar" :class="{ linkActive : isActive === 'dashboard' }">Dashboard</span></i></router-link>
+                <li @click="ActiveLink('dashboard')" :class="{ navSidebarActive : isSystem === 'dashboard'}">
+                    <router-link to="/"><i class="fas fa-chart-line"><span class="LinkSidebar" :class="{ linkActive : isSystem === 'dashboard' }">Dashboard</span></i></router-link>
                 </li>
-                <li @click="ActiveLink('pos')" :class="{ navSidebarActive : isActive === 'pos'}">
+                <li @click="ActiveLink('pos')" :class="{ navSidebarActive : isSystem === 'pos'}">
                     <router-link to="pos"><i class="fas fa-cash-register"><span class="LinkSidebar">POS</span></i></router-link>
                 </li>
                 <!-- <li>
                     <router-link to="dashboard/1">Unit</router-link>
                 </li> -->
-                <li @click="ActiveLink('listgoods')" :class="{ navSidebarActive : isActive === 'listgoods'}">
-                    <router-link to="listgoods" @click="ActiveLink('listgoods')"><i class="fas fa-cubes"><span class="LinkSidebar">Goods</span></i></router-link>
+                <li @click="ActiveLink('Goods')" :class="{ navSidebarActive : isSystem === 'Goods'}">
+                    <router-link to="Goods" @click="ActiveLink('Goods')"><i class="fas fa-cubes"><span class="LinkSidebar">Goods</span></i></router-link>
+                </li>
+                <li @click="ActiveLink('teststate')" :class="{ navSidebarActive : isSystem === 'teststate'}">
+                    <router-link to="teststate" @click="ActiveLink('teststate')"><i class="fas fa-cubes"><span class="LinkSidebar">State</span></i></router-link>
                 </li>
             </ul>
         </div>
@@ -23,12 +26,13 @@
         <div class="container-fluid">
             <div class='block-menu'>
               <div class='row'>
-                  <div class="col-md-12 col-lg-6 d-flex">
+                  <div class="col-6 d-flex">
                       <button name="button" type="button" class="toggle-mobile-nav" @click="openSideBar(true)"><span class="sr-only">Open sidebar</span>
                           <i aria-hidden="true" data-hidden="true" class="fa fa-bars"></i>
                       </button>
                   </div>
-                  <div class="col-md-12 col-lg-6 d-inline-flex flex-wrap justify-content-lg-end" id='menuRight'>
+                  <div class="col-6 d-inline-flex flex-wrap justify-content-lg-end" id='menuRight' style="padding:5px 25px 0px 0px;">
+                    <button type="button" class="btn btn-dark" data-toggle="modal" v-bind:data-target="'#Manage' + $store.getters.SystemName + 'Modal'" @click="GenRunningNumber"><i class="fas fa-plus"></i> New {{ $store.getters.SystemName }}</button>
                   </div>
               </div>
             </div>
@@ -41,8 +45,9 @@
 export default {
   name: 'leftmenu',
   data () {
+    this.SetSystemName(this.$router.currentRoute.name)
     return {
-      isActive: this.$router.currentRoute.name,
+      isSystem: this.$router.currentRoute.name,
       isSideBar: false,
       paddingSidebar: '',
       windowWidth: 0
@@ -67,7 +72,7 @@ export default {
   },
   methods: {
     ActiveLink: function (urlRouter) {
-      this.isActive = urlRouter
+      this.isSystem = urlRouter
     },
     openSideBar: function (e) {
       if (e) {
@@ -80,6 +85,12 @@ export default {
         this.paddingSidebar = -220
         this.isSideBar = false
       }
+    },
+    GenRunningNumber: function (action) {
+      this.$store.dispatch('GenRunningNumber')
+    },
+    SetSystemName: function (e) {
+      this.$store.dispatch('GenSystemName', e)
     }
   }
 }

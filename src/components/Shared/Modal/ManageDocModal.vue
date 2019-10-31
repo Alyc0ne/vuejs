@@ -1,5 +1,6 @@
 <template>
- <div class="modal fade" ref="ManageGoodsModal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--Use For Insert,Update Doc -->
+ <div class="modal fade" ref="ManageGoodsModal" id="ManageGoodsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,7 +15,7 @@
                         <div class="form-group row">
                             <label for="GoodsNo" class="col-2 col-form-label">รหัสสินค้า : </label>
                             <div class="frm-content col-10">
-                                <input type="text" class="form-control" v-model="obj.GoodsNo" data-maxlength='10' disabled>
+                                <input type="text" class="form-control" v-model="$store.getters.RunningNumber" data-maxlength='10' disabled>
                                 <input type="hidden" class="form-control" id="tempGoodsNo" name="GoodsNo">
                             </div>
                         </div>
@@ -71,17 +72,16 @@ export default {
   name: 'ManageGoodsModal',
   data () {
     return {
-      obj: {
-        GoodsNo: 1425555
-      }
+      obj: {}
     }
   },
   mounted () {
-    this.obj.GoodsNo = this.$http.get(this.$api + 'GetRunningNumber/Goods')
+    // this.obj.GoodsNo = this.$http.get(this.$api + 'GetRunningNumber/Goods')
   },
   methods: {
     BindManage: function () {
-      this.$http.post(this.$api + 'BindManage', this.obj)
+      this.obj.GoodsNo = this.$store.getters.RunningNumber
+      this.$http.post(this.$api + 'BindManage' + this.$store.getters.SystemName, this.obj)
         .then(function (response) {
           console.log(response)
         })
