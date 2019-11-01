@@ -23,11 +23,11 @@
                             <label for="GoodsBarcode" class="col-2 col-form-label require"><span class='text-red'> </span>Barcode : </label>
                             <div class="col-10">
                                 <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="IsBarcode">
-                                    <input type="hidden" v-model="obj.IsBarcode" value="0"/>
+                                    <input type="checkbox" class="custom-control-input" id="IsBarcode" @click="SetIsBarcode($event)">
+                                    <input type="hidden" v-model="obj.IsBarcode"/>
                                     <label class="custom-control-label" for="IsBarcode">ใช้งาน Barcode</label>
                                 </div>
-                                <input type="text" class="form-control" v-model="obj.GoodsBarcode" data-maxlength='10' disabled autocomplete="off">
+                                <input type="text" class="form-control" :class="{ disabledInput : !obj.IsBarcode}" v-model="obj.GoodsBarcode" data-maxlength='10' autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -72,7 +72,9 @@ export default {
   name: 'ManageGoodsModal',
   data () {
     return {
-      obj: {}
+      obj: {
+        IsBarcode: false
+      }
     }
   },
   mounted () {
@@ -88,7 +90,16 @@ export default {
         .catch(function (error) {
           console.log(error)
         })
+    },
+    SetIsBarcode: function (e) {
+      this.obj.IsBarcode = e.target.checked
     }
   }
 }
 </script>
+<style scoped>
+.disabledInput {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+</style>

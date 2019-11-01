@@ -62,14 +62,14 @@
         <div class="row transac-pagination" style="margin-top:10px;">
           <nav aria-label="...">
             <ul class="pagination">
-              <li class="page-item disabled">
-                <span class="page-link">Previous</span>
+              <li class="page-item" :class="{ disabled : thisPage == 1}">
+                <span class="page-link" @click="GetGoodData(thisPage - 1)">Previous</span>
               </li>
               <li class="page-item" :class="{ active : thisPage == GP }" v-for="GP in GoodsPagination" v-bind:key="GP.page">
                 <a class="page-link" @click="GetGoodData(GP)">{{ GP }}</a>
               </li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+              <li class="page-item" :class="{ disabled : thisPage == GoodsPagination}">
+                <a class="page-link" @click="GetGoodData(thisPage + 1)" href="#">Next</a>
               </li>
             </ul>
           </nav>
@@ -136,5 +136,9 @@ tr:last-child.transac-posDetail  {
 }
 i {
   cursor: pointer;
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
 }
 </style>
