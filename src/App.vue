@@ -12,6 +12,7 @@
 import Header from '@/components/Shared/Default/Header'
 import Main from '@/components/Shared/Default/Main'
 import ManageDocModal from '@/components/Shared/Modal/ManageDocModal'
+import Alert from '@/components/Shared/Modal/Alert'
 import appMixins from '@/Mixins/appMixins'
 import {store} from '@/store/'
 export default {
@@ -21,7 +22,8 @@ export default {
   components: {
     Header,
     Main,
-    ManageDocModal
+    ManageDocModal,
+    Alert
   }
 }
 </script>

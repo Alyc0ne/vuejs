@@ -10,7 +10,8 @@ const debug = process.env.NODE_ENV !== 'production'
 export const store = new Vuex.Store({
   state: {
     SystemName: '',
-    RunningNumber: ''
+    RunningNumber: '',
+    GoodsList: []
   },
   actions: {
     GenRunningNumber (state) {
@@ -24,6 +25,16 @@ export const store = new Vuex.Store({
     },
     GenSystemName (state, value) {
       state.commit('setSystemName', value)
+    },
+    GetGoodsList (state, pageNumber) {
+      axios.get($api + 'TestAPI?page=' + pageNumber)
+        .then((response) => {
+          console.log(response.data)
+          state.commit('setGoodsList', response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   },
   mutations: {
@@ -32,11 +43,15 @@ export const store = new Vuex.Store({
     },
     setRunning (state, value) {
       state.RunningNumber = value
+    },
+    setGoodsList (state, value) {
+      state.GoodsList = value
     }
   },
   getters: {
     RunningNumber: state => state.RunningNumber,
-    SystemName: state => state.SystemName
+    SystemName: state => state.SystemName,
+    GoodsList: state => state.GoodsList
   },
   strict: debug
 })

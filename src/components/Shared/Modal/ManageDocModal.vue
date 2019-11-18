@@ -85,7 +85,12 @@ export default {
       this.obj.GoodsNo = this.$store.getters.RunningNumber
       this.$http.post(this.$api + 'BindManage' + this.$store.getters.SystemName, this.obj)
         .then(function (response) {
-          console.log(response)
+          if (response.status === '201') {
+            console.log('')
+            this.obj = ''
+          } else {
+            console.log('')
+          }
         })
         .catch(function (error) {
           console.log(error)

@@ -95,7 +95,6 @@ export default {
   },
   methods: {
     GetGoodData: function (pageNumber) {
-      console.log(pageNumber)
       this.$http.get('http://127.0.0.1:8000/api/TestAPI?page=' + pageNumber)
         .then((result) => {
           this.result = result.data.data
@@ -132,7 +131,9 @@ tr:last-child.transac-posDetail  {
   height: 30px;
 }
 .transac-pagination {
-  justify-content: center;
+  /* justify-content: center; */
+  float: right;
+  margin-right: 0px;
 }
 i {
   cursor: pointer;
